@@ -1,0 +1,164 @@
+// Color Themes
+$themes: (
+  light: (
+    primary: #3498db,
+    background-main: #ffffff,
+    background-secondary: #f0f0f0,
+    text-primary: #2c3e50,
+    text-secondary: #34495e,
+    border: #ddd,
+    hover: #e7e7e7
+  ),
+  dark: (
+    primary: #61dafb,
+    background-main: #121212,
+    background-secondary: #1e1e1e,
+    text-primary: #ffffff,
+    text-secondary: #b0b0b0,
+    border: #444,
+    hover: #2a2a2a
+  )
+);
+
+// Mixins
+@mixin theme-aware($property, $color) {
+  @each $theme, $map in $themes {
+    .#{$theme}-theme & {
+      #{$property}: map-get($map, $color);
+    }
+  }
+}
+
+@mixin transition-smooth {
+  transition: all 0.3s ease;
+}
+
+// Global Styles
+.split-page-container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  
+  @include theme-aware(background-color, background-main);
+  @include theme-aware(color, text-primary);
+
+  // Mode Toggle Button
+  .mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 100;
+    @include transition-smooth;
+
+    &:hover {
+      transform: rotate(180deg);
+    }
+  }
+
+  .left-panel {
+    width: 20%;
+    padding: 20px;
+    overflow-y: auto;
+    margin-left: 55px;
+    padding-top: 90px;
+    
+    @include theme-aware(background-color, background-secondary);
+    @include theme-aware(border-right-color, border);
+    border-right-width: 1px;
+    border-right-style: solid;
+
+    .content-list-item {
+      padding: 15px;
+      cursor: pointer;
+      @include theme-aware(border-bottom-color, border);
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      @include theme-aware(color, text-primary);
+      @include transition-smooth;
+
+      &:hover {
+        @include theme-aware(background-color, hover);
+      }
+
+      &.selected {
+        @include theme-aware(background-color, background-main);
+        font-weight: bold;
+        position: relative;
+
+        &::after {
+          content: '➔';
+          position: absolute;
+          right: 15px;
+          @include theme-aware(color, primary);
+        }
+      }
+    }
+  }
+
+  .right-panel {
+    width: 70%;
+    padding: 30px;
+    overflow-y: auto;
+
+    .content-title {
+      @include theme-aware(color, primary);
+      @include theme-aware(border-bottom-color, primary);
+      border-bottom-width: 3px;
+      border-bottom-style: solid;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    .content-description {
+      line-height: 1.6;
+      @include theme-aware(color, text-secondary);
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .diagram-container {
+      margin-top: 20px;
+      
+      .diagram-title {
+        @include theme-aware(color, primary);
+        border-bottom: 2px solid;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+      }
+
+      .mermaid {
+        background-color: rgba(0,0,0,0.05);
+        padding: 15px;
+        border-radius: 5px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .left-panel,
+    .right-panel {
+      width: 100%;
+    }
+
+    .left-panel {
+      max-height: 250px;
+      margin-left: 0;
+      padding-top: 20px;
+      @include theme-aware(border-bottom-color, border);
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-right: none;
+    }
+  }
+}

@@ -1,0 +1,102 @@
+.projects-page {
+  text-align: center;
+  padding: 40px;
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .projects-container {
+    position: relative; /* Ensure proper positioning for the arrow */
+    display: flex;
+    align-items: center;
+
+    .projects-list {
+      display: flex;
+      flex-wrap: nowrap; /* Disable wrapping */
+      overflow-x: auto; /* Enable horizontal scrolling */
+      padding: 20px;
+      gap: 20px; /* Space between cards */
+      scroll-behavior: smooth;
+
+      -ms-overflow-style: none; /* Hide scrollbar in IE/Edge */
+      scrollbar-width: none; /* Hide scrollbar in Firefox */
+      &::-webkit-scrollbar {
+        display: none; /* Hide scrollbar in Chrome/Safari */
+      }
+
+      > * {
+        min-width: 300px;
+        flex: 0 0 auto; /* Prevent shrinking */
+        padding: 20px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.1); /* Slightly transparent */
+        backdrop-filter: blur(10px); /* Frosted glass effect */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+        &:hover {
+          transform: translateY(-10px); /* Lift effect on hover */
+          box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+        }
+
+        img {
+          width: 100%;
+          height: auto;
+          border-radius: 10px;
+          margin-bottom: 15px;
+        }
+
+        h3 {
+          font-size: 1.5rem;
+          color: #ffd700;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 1rem;
+          color: #fff;
+          margin-bottom: 10px;
+        }
+
+        .techStack {
+          font-size: 0.9rem;
+          color: #ddd;
+        }
+
+        a {
+          color: #ffd700;
+          text-decoration: none;
+          font-weight: bold;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .scroll-arrow {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+    }
+  }
+}
